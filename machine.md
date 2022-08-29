@@ -1,14 +1,14 @@
 # OS install parameter
-コード化も可能だが後手に回したので、設定手順のメモを設置する  
+OS設定の標準化を目指したかった。設定手順のメモ  
   
 ## OSインストール時のパラメーター
 ◆VMスペック  
-cpu 1core , mem 2G , hdd 16G , 管理用Networkを付与したNIC  
+cpu 1core , mem 2G , hdd 16G , 疎通可能なNetwork(vlan,vds)を付与したNIC  
   
 ◆仮想マシンの作成  
 名前の指定  
 クラスタ、リソース、ストレージの指定  
-linux , ubuntu20 64bit  
+linux , ubuntu22 64bit  
 リソースの指定でコンテンツライブラリのisoを指定して接続にチェック  
   
 起動  
@@ -25,6 +25,7 @@ diskとfilesystem
 　そのままDoneを選択  
 Profile  
 　osmanager, ubuntu-20.x-masterimg,  
+  #usernameを決める(osmanager)  
 advantage  
 　Done  
 InstallOpenSSHserver check  
@@ -54,6 +55,7 @@ network:
                 - 192.168.10.1
     version: 2
 ```
+操作の為のsshやaptの使用のために一時的なIPを付与する  
   
 システム設定
 ```
@@ -70,6 +72,11 @@ apt update
 apt install open-vm-tools
 apt install net-tools
 ```
+pythonの設定
+```
+cd /usr/bin/
+ln -s python3.10 python
+```
 OSの停止
 ```
 rm -f /etc/netplan/50-config.yaml
@@ -79,8 +86,8 @@ shutdown -h now
 vCenterで設定
 ```
 設定の編集でCD/DVDをクライアントデバイスに変える
-annotationの付与 -> 20220519 created  
-VMのtemplate化  
+annotationの付与 -> 20220819 created  
+VMのtemplate化(停止していれば右クリックでtemplate化が可能)  
 playbookで作成されるnic構成ファイルは99-vmware-configured.ymlとなる  
 ```
   

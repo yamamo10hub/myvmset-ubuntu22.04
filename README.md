@@ -1,5 +1,5 @@
 # ubuntu myvmset
-version 20.04.4  
+version 22.04  
   
 ## 概要
 vmwareでコードインフラを構成するためにベースとなるtemplate用OSimageを考える  
